@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-button>
+    <ion-title>Weather</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="centre">
+    <form [formGroup]='weatherForm'>
+      <ion-card-content>
+        <ion-button fill="outline" color="success">
+          <div>
+            <ion-input placeholder="Enter City Name" name="city" formControlName="cityName">
+              <ion-icon name="search"></ion-icon>
+            </ion-input>
+          </div>
+        </ion-button>
+      </ion-card-content>
+      <ion-button type="submit" color="success" (click)="searchCity()" >Search</ion-button>
+    </form>
+  </ion-card>
+
+
+      <ion-item *ngFor="let weather of weathers">
+       <ion-card style="width : 100% ">
+
+         <ion-grid class="centre">
+           <ion-row>
+             <ion-col size="8">
+               <div class="details">
+                <div>City : {{weather.cityName}}</div>
+                <div>Description : {{weather.temperature}}</div>
+              </div>
+            </ion-col>
+            <ion-col  size ="4">
+              <div class="temperature" >
+                <h4 class="nomargin"><b>{{weather.temperature}} °C</b></h4>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+      </ion-item>
+
+
+</ion-content>
