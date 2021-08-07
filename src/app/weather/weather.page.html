@@ -1,50 +1,86 @@
+
 <ion-header>
-  <ion-toolbar>
-    <ion-button slot="start">
-      <ion-back-button ></ion-back-button>
-    </ion-button>
-    <ion-title>Weather</ion-title>
-  </ion-toolbar>
+  <form [formGroup]='weatherForm' (ngSubmit)='fetch()'>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-input type='text' placeholder="Search your city" formControlName="search">
+
+      </ion-input>
+        <ion-buttons slot="end">
+          <ion-button class="search-btn" type='submit'>
+            <ion-icon color="primary" name="search"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </form>
 </ion-header>
 
-<ion-content>
-
-  <ion-card class="centre">
-    <form [formGroup]='weatherForm'>
+<ion-content *ngIf="weather">
+  <div class="slides ion-margin-bottom">
+    <ion-card >
+    <!-- <ion-card > -->
+      <ion-card-header>
+        <h2>{{weather.name}}</h2>
+      </ion-card-header>
       <ion-card-content>
-        <ion-button fill="outline" color="success">
-          <div>
-            <ion-input placeholder="Enter City Name" name="city" formControlName="cityName">
-              <ion-icon name="search"></ion-icon>
-            </ion-input>
-          </div>
-        </ion-button>
-      </ion-card-content>
-      <ion-button type="submit" color="success" (click)="searchCity()" >Search</ion-button>
-    </form>
-  </ion-card>
-
-
-      <ion-item *ngFor="let weather of weathers">
-       <ion-card style="width : 100% ">
-
-         <ion-grid class="centre">
-           <ion-row>
-             <ion-col size="8">
-               <div class="details">
-                <div>City : {{weather.cityName}}</div>
-                <div>Description : {{weather.temperature}}</div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="main">
+                <!-- <ion-icon url="http://openweathermap.org/img/wn/10d@2x.png">{{weather.weather[0].icon}}</ion-icon> -->
+                <!-- <i url="http://openweathermap.org/img/wn/10d@2x.png"></i> -->
+                <!-- <ion-icon name="sunny"></ion-icon>
+                <ion-icon name="partly-sunny"></ion-icon>
+                <ion-icon name="cloudy"></ion-icon>
+                <ion-icon name="cloudy-night"></ion-icon>
+                <ion-icon name="rainy"></ion-icon> -->
+                <ion-icon name="thunderstorm"></ion-icon>
               </div>
             </ion-col>
-            <ion-col  size ="4">
-              <div class="temperature" >
-                <h4 class="nomargin"><b>{{weather.temperature}} °C</b></h4>
-              </div>
-            </ion-col>
-          </ion-row>
+            <ion-col>
+              <h1>{{weather.main.temp}} °C</h1>
+            <h3 class="weather">{{weather.weather[0].main}}</h3>
+          </ion-col>
+        </ion-row>
         </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+  <div class="container">
+    <ion-item lines='none'>
+      <ion-card>
+        <ion-card-content>
+          <h3>Min : {{weather.main.temp_min}} °C</h3>
+          <h3>Max : {{weather.main.temp_max}} °C</h3>
+        </ion-card-content>
+        <ion-card-content>
+          <h3>Humidity : {{weather.main.humidity}} %</h3>
+          <h3>Wind Speed : {{weather.wind.speed}} m/s</h3>
+          <h3>Wind Direction : {{weather.wind.deg}}°</h3>
+        </ion-card-content>
+        <ion-card-content>
+          <h3>Country : {{weather.sys.country}}</h3>
+          <h3>Latitude : {{weather.coord.lat}}</h3>
+          <h3>Longitude : {{weather.coord.lon}}</h3>
+        </ion-card-content>
       </ion-card>
-      </ion-item>
-
-
+      <!-- <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="3">
+          </ion-col>
+          <ion-col size="7">
+            <ion-label>
+              <h4>Rest data</h4>
+              <h6>Data</h6>
+            </ion-label>
+          </ion-col>
+          <ion-col size="2">
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
+    </ion-item>
+  </div>
 </ion-content>
